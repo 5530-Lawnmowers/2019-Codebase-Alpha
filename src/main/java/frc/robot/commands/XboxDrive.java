@@ -35,7 +35,7 @@ public class XboxDrive extends Command {
 			return 0;
 		}
   }
-  
+
   // A method for making sure gears aren't shearing
   double GetPositionFiltered(double currentInput, double currentSpeed){
 		if (Math.abs(currentSpeed - currentInput) > .025 && Math.abs(currentSpeed) < 0.3) {
