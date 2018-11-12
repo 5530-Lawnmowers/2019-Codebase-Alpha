@@ -7,6 +7,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -38,7 +42,28 @@ public class OI {
    * button.whenReleased(new ExampleCommand());
   */
 
+  public static Joystick stick1 = new Joystick(0);
+	public static Joystick stick2 = new Joystick(2);
+	public static XboxController XBController = new XboxController(1);
+  public static Button[] buttons = new Button[12];
   
+  public OI(){
+    // Creating an array of 12 Joystick buttons
+    for(int i=1; i <= 12; i++) {
+			buttons[i-1] = new JoystickButton(stick1, i);
+    }
+    
+    // Creating all of the Xbox buttons as joystick buttons which usually
+    // isn't needed but can be useful
+    Button xboxButtonA = new JoystickButton(XBController, 1),
+				xboxButtonB = new JoystickButton(XBController, 2),
+				xboxButtonX = new JoystickButton(XBController, 3),
+				xboxButtonY = new JoystickButton(XBController, 4),
+				xboxButtonLB = new JoystickButton(XBController, 5),
+				xboxButtonRB = new JoystickButton(XBController, 6);
+
+  }
+
 
 
 }
