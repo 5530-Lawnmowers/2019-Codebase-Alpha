@@ -1,7 +1,64 @@
 package frc.robot.data;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Profile {
 	
+	public static List<Float> readCSV(String fileName) throws IOException {
+		// open file input stream
+		BufferedReader reader = new BufferedReader(new FileReader(fileName));
+
+		// read file line by line
+		String line = null;
+		Scanner scanner = null;
+		int index = 0;
+		List<Float> profileList = new ArrayList<>();
+
+		while ((line = reader.readLine()) != null) {
+			scanner = new Scanner(line);
+			scanner.useDelimiter(",");
+			while (scanner.hasNext()) {
+				String data = scanner.next();
+				profileList.add(Float.parseFloat(data));
+			}
+			index = 0;
+		}
+		
+		//close reader
+		reader.close();
+		
+		System.out.println(profileList);
+		return(profileList);
+	}
+
+	public static Float[][][] getProfile(String profileName) throws IOException{
+		List<Float> rightPosList = null;
+		List<Float> leftPosList = null;
+		List<Float> rightVelList = null;
+		List<Float> leftVelList = null;
+
+		rightPosList = readCSV(profileName + "RP" + ".csv");
+		leftPosList = readCSV(profileName + "LP" + ".csv");
+		rightVelList = readCSV(profileName + "RV" + ".csv");
+		leftVelList  = readCSV(profileName + "LV" + ".csv");
+
+		Float [] rightPos = rightPosList.toArray(new Float[rightPosList.size()]);
+		Float [] leftPos = rightPosList.toArray(new Float[leftPosList.size()]);
+		Float [] rightVel = rightPosList.toArray(new Float[rightVelList.size()]);
+		Float [] leftVel = rightPosList.toArray(new Float[leftVelList.size()]);
+
+		Float[][][] profile = {{rightPos, rightVel}, {leftPos, leftVel}};
+		return profile;
+		
+	}
+
+
+
 	private static double [] rightSwitchLP5 = {0, 
 			0.328067509, 
 			0.6556022, 
